@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Arr;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +25,52 @@ Route::get('/contact', function () {
 
 Route::get('/about', function () {
     return view('about');
+});
+
+Route::get('/jobs', function () {
+    return view('jobs', [
+        'jobs' => [
+            [
+                'id' => 1,
+                'title' => 'Junior Developer',
+                'salary' => '$60000'
+            ],
+            [
+                'id' => 2,
+                'title' => 'Senior Developer',
+                'salary' => '$80000'
+            ],
+            [
+                'id' => 3,
+                'title' => 'Manager',
+                'salary' => '$100000'
+            ]
+        ]
+    ]);
+});
+
+Route::get('/jobs/{id}', function ($id) {
+    $jobs = [
+        [
+            'id' => 1,
+            'title' => 'Junior Developer',
+            'salary' => '$60000'
+        ],
+        [
+            'id' => 2,
+            'title' => 'Senior Developer',
+            'salary' => '$80000'
+        ],
+        [
+            'id' => 3,
+            'title' => 'Manager',
+            'salary' => '$100000'
+        ]
+    ];
+
+    $filteredJob = Arr::first($jobs, fn($job) => $job['id'] == $id);
+
+    return view('job', [
+        'job' => $filteredJob
+    ]);
 });

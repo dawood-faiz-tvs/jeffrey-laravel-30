@@ -19,9 +19,10 @@
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                                <x-nav-link href="/" :active="request()->is('/')" type="button">Home</x-nav-link>
+                                <x-nav-link href="/" :active="request()->is('/')">Home</x-nav-link>
                                 <x-nav-link href="/about" :active="request()->is('about')">About</x-nav-link>
                                 <x-nav-link href="/contact" :active="request()->is('contact')">Contact</x-nav-link>
+                                <x-nav-link href="/jobs" :active="request()->is('jobs')">Jobs</x-nav-link>
                             </div>
                         </div>
                     </div>
@@ -72,6 +73,7 @@
                     <x-nav-link href="/" :active="request()->is('/')" :isMobile="true">Home</x-nav-link>
                     <x-nav-link href="/about" :active="request()->is('about')" :isMobile="true">About</x-nav-link>
                     <x-nav-link href="/contact" :active="request()->is('contact')" :isMobile="true">Contact</x-nav-link>
+                    <x-nav-link href="/jobs" :active="request()->is('jobs')" :isMobile="true">Jobs</x-nav-link>
                 </div>
                 <div class="border-t border-gray-700 pb-3 pt-4">
                     <div class="flex items-center px-5">
