@@ -7,4 +7,8 @@ class Job extends Model{
     use HasFactory;
     
     protected $fillable = ['title','salary'];
+
+    public function employer(){
+        return $this->belongsTo(\App\Models\Employer::class);
+    }
 }
