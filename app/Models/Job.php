@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Job extends Model{
     use HasFactory;
     
-    protected $fillable = ['title','salary'];
+    // protected $fillable = ['title','salary'];
+    protected $guarded = [];
 
     public function employer(){
         return $this->belongsTo(\App\Models\Employer::class);
