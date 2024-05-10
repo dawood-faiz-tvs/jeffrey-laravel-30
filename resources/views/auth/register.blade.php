@@ -8,10 +8,18 @@
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
                 <x-form-field>
-                    <x-form-label for="name">Name</x-form-label>
+                    <x-form-label for="first_name">First Name</x-form-label>
                     <div class="mt-2">
-                        <x-form-input name="name" id="name" placeholder="e.g. John Doe" />
-                        <x-form-error name="name" />
+                        <x-form-input name="first_name" id="first_name" placeholder="e.g. John" />
+                        <x-form-error name="first_name" />
+                    </div>
+                </x-form-field>
+
+                <x-form-field>
+                    <x-form-label for="last_name">Last Name</x-form-label>
+                    <div class="mt-2">
+                        <x-form-input name="last_name" id="last_name" placeholder="e.g. Doe" />
+                        <x-form-error name="last_name" />
                     </div>
                 </x-form-field>
 
