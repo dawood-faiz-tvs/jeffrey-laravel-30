@@ -22,11 +22,10 @@ Route::view('/contact', 'contact');
 Route::view('/about', 'about');
 
 Route::get('/jobs', [JobController::class, 'index']);
-Route::get('/jobs/{job}', [JobController::class, 'show']);
 
 Route::middleware('auth')->controller(JobController::class)->group(function () {
-    Route::get('jobs/create', 'create');
     Route::post('/jobs', 'store');
+    Route::get('/jobs/create', [JobController::class, 'create']);
 
     Route::middleware('can:edit,job')->group(function () {
         Route::patch('/jobs/{job}', 'update');
@@ -34,6 +33,8 @@ Route::middleware('auth')->controller(JobController::class)->group(function () {
         Route::get('jobs/{job}/edit', 'edit');
     });
 });
+
+Route::get('/jobs/{job}', [JobController::class, 'show']);
 
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
