@@ -10,7 +10,9 @@
 
         <p class="mt-6">
             <x-button href="/jobs">Go Back</x-button>
+            @if (Auth::user() && $job->employer->user->is(Auth::user()))
             <x-button href="/jobs/{{ $job->id }}/edit">Edit Job</x-button>
+            @endif
         </p>
     </div>
 </x-layout>

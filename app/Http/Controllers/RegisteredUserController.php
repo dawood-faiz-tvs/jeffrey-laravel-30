@@ -28,6 +28,7 @@ class RegisteredUserController extends Controller
             'password_confirmation.required' => 'The confirm password field is required.'
         ],);
 
+        unset($attributes['password_confirmation']);
         $user = User::create($attributes);
         Auth::login($user);
 

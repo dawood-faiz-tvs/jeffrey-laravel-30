@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Job;
+use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
 {
@@ -16,14 +17,16 @@ class JobController extends Controller
 
     public function store()
     {
-        request()->validate([
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+
+        $attributes = request()->validate([
             'title' => ['required', 'min:3'],
             'salary' => ['required']
         ]);
 
-        Job::create([
-            'title' => request('title'),
-            'salary' => request('salary'),
+        Job::create($attributes + [
             'employer_id' => 1
         ]);
 
@@ -32,19 +35,29 @@ class JobController extends Controller
 
     public function create()
     {
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+
         return view('jobs.create');
     }
 
     public function update(Job $job)
     {
-        request()->validate([
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+
+        if ($job->employer->user->isNot(Auth::user())) {
+            abort(403);
+        }
+
+        $attributes = request()->validate([
             'title' => ['required', 'min:3'],
             'salary' => ['required']
         ]);
 
-        $job->update([
-            'title' => request('title'),
-            'salary' => request('salary'),
+        $job->update($attributes + [
             'employer_id' => 1
         ]);
 
@@ -53,6 +66,14 @@ class JobController extends Controller
 
     public function destroy(Job $job)
     {
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+
+        if ($job->employer->user->isNot(Auth::user())) {
+            abort(403);
+        }
+
         $job->delete();
 
         return redirect('/jobs');
@@ -67,6 +88,13 @@ class JobController extends Controller
 
     public function edit(Job $job)
     {
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+
+        if ($job->employer->user->isNot(Auth::user())) {
+            abort(403);
+        }
         return view('jobs.edit', [
             'job' => $job
         ]);
