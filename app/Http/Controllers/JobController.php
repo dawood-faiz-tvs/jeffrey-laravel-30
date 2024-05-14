@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class JobController extends Controller
 {
@@ -48,10 +49,7 @@ class JobController extends Controller
             return redirect('/login');
         }
 
-        if ($job->employer->user->isNot(Auth::user())) {
-            abort(403);
-        }
-
+        Gate::authorize('edit-job', $job);
         $attributes = request()->validate([
             'title' => ['required', 'min:3'],
             'salary' => ['required']
@@ -70,10 +68,7 @@ class JobController extends Controller
             return redirect('/login');
         }
 
-        if ($job->employer->user->isNot(Auth::user())) {
-            abort(403);
-        }
-
+        Gate::authorize('edit-job', $job);
         $job->delete();
 
         return redirect('/jobs');
@@ -92,9 +87,7 @@ class JobController extends Controller
             return redirect('/login');
         }
 
-        if ($job->employer->user->isNot(Auth::user())) {
-            abort(403);
-        }
+        Gate::authorize('edit-job', $job);
         return view('jobs.edit', [
             'job' => $job
         ]);
