@@ -10,9 +10,10 @@
 
         <p class="mt-6">
             <x-button href="/jobs">Go Back</x-button>
-            @if (Auth::user() && $job->employer->user->is(Auth::user()))
+
+            @can('edit-job', $job)
             <x-button href="/jobs/{{ $job->id }}/edit">Edit Job</x-button>
-            @endif
+            @endcan
         </p>
     </div>
 </x-layout>

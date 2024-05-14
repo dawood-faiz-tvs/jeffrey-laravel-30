@@ -49,7 +49,9 @@ class JobController extends Controller
             return redirect('/login');
         }
 
-        Gate::authorize('edit-job', $job);
+        if (Auth::user()->cannot('edit-job', $job)) {
+            abort(403);
+        }
         $attributes = request()->validate([
             'title' => ['required', 'min:3'],
             'salary' => ['required']
@@ -68,7 +70,9 @@ class JobController extends Controller
             return redirect('/login');
         }
 
-        Gate::authorize('edit-job', $job);
+        if (Auth::user()->cannot('edit-job', $job)) {
+            abort(403);
+        }
         $job->delete();
 
         return redirect('/jobs');
@@ -87,7 +91,9 @@ class JobController extends Controller
             return redirect('/login');
         }
 
-        Gate::authorize('edit-job', $job);
+        if (Auth::user()->cannot('edit-job', $job)) {
+            abort(403);
+        }
         return view('jobs.edit', [
             'job' => $job
         ]);
