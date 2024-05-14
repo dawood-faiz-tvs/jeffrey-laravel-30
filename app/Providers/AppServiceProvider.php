@@ -27,11 +27,10 @@ class AppServiceProvider extends ServiceProvider
     {
         // Model::preventLazyLoading();
         // Model::unguard();
+        // Gate::define('edit-job', function (User $user, Job $job) {
+        //     return $job->employer->user->is($user);
+        // });
 
         Paginator::useTailwind();
-
-        Gate::define('edit-job', function (User $user, Job $job) {
-            return $job->employer->user->is($user);
-        });
     }
 }

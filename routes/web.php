@@ -28,7 +28,7 @@ Route::middleware('auth')->controller(JobController::class)->group(function () {
     Route::get('jobs/create', 'create');
     Route::post('/jobs', 'store');
 
-    Route::middleware('can:edit-job,job')->group(function () {
+    Route::middleware('can:edit,job')->group(function () {
         Route::patch('/jobs/{job}', 'update');
         Route::delete('/jobs/{job}', 'destroy');
         Route::get('jobs/{job}/edit', 'edit');
