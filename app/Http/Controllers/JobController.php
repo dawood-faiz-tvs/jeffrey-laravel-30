@@ -18,10 +18,6 @@ class JobController extends Controller
 
     public function store()
     {
-        if (Auth::guest()) {
-            return redirect('/login');
-        }
-
         $attributes = request()->validate([
             'title' => ['required', 'min:3'],
             'salary' => ['required']
@@ -36,22 +32,11 @@ class JobController extends Controller
 
     public function create()
     {
-        if (Auth::guest()) {
-            return redirect('/login');
-        }
-
         return view('jobs.create');
     }
 
     public function update(Job $job)
     {
-        if (Auth::guest()) {
-            return redirect('/login');
-        }
-
-        if (Auth::user()->cannot('edit-job', $job)) {
-            abort(403);
-        }
         $attributes = request()->validate([
             'title' => ['required', 'min:3'],
             'salary' => ['required']
@@ -66,13 +51,6 @@ class JobController extends Controller
 
     public function destroy(Job $job)
     {
-        if (Auth::guest()) {
-            return redirect('/login');
-        }
-
-        if (Auth::user()->cannot('edit-job', $job)) {
-            abort(403);
-        }
         $job->delete();
 
         return redirect('/jobs');
@@ -87,13 +65,6 @@ class JobController extends Controller
 
     public function edit(Job $job)
     {
-        if (Auth::guest()) {
-            return redirect('/login');
-        }
-
-        if (Auth::user()->cannot('edit-job', $job)) {
-            abort(403);
-        }
         return view('jobs.edit', [
             'job' => $job
         ]);
