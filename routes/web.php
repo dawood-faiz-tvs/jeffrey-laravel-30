@@ -22,12 +22,18 @@ Route::view('/contact', 'contact');
 Route::view('/about', 'about');
 
 Route::get('/jobs', [JobController::class, 'index']);
-Route::get('jobs/create', [JobController::class, 'create'])->middleware('auth');
-Route::post('/jobs', [JobController::class, 'store'])->middleware('auth');
-Route::patch('/jobs/{job}', [JobController::class, 'update'])->middleware('auth')->can('edit-job', 'job');
 Route::get('/jobs/{job}', [JobController::class, 'show']);
-Route::delete('/jobs/{job}', [JobController::class, 'destroy'])->middleware('auth')->can('edit-job', 'job');
-Route::get('jobs/{job}/edit', [JobController::class, 'edit'])->middleware('auth')->can('edit-job', 'job');
+
+Route::middleware('auth')->controller(JobController::class)->group(function () {
+    Route::get('jobs/create', 'create');
+    Route::post('/jobs', 'store');
+
+    Route::middleware('can:edit-job,job')->group(function () {
+        Route::patch('/jobs/{job}', 'update');
+        Route::delete('/jobs/{job}', 'destroy');
+        Route::get('jobs/{job}/edit', 'edit');
+    });
+});
 
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
