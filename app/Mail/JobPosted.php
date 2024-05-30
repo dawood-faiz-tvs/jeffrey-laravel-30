@@ -9,17 +9,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Job;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class JobPosted extends Mailable
 {
     use Queueable, SerializesModels;
+
 
     /**
      * Create a new message instance.
      */
     public function __construct(public Job $job)
     {
-        //
     }
 
     /**

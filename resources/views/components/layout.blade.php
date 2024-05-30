@@ -26,8 +26,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hidden md:block">
                         <div class="ml-4 flex items-center md:ml-6">
+                    <div class="hidden md:block">
                             @auth
                             <form action="/logout" method="post">
                                 @csrf

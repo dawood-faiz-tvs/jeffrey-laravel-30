@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Mail\JobPosted;
 use Illuminate\Support\Facades\Mail;
+use App\Jobs\TranslateJob;
+use Symfony\Component\Translation\Translator;
 
 class JobController extends Controller
 {
@@ -24,10 +26,12 @@ class JobController extends Controller
         ]);
 
         $job = Job::create($attributes + [
-            'employer_id' => 1
+            'employer_id' => auth()->user()->employer->id
         ]);
 
-        Mail::to($job->employer->user)->send(new JobPosted($job));
+        Mail::to($job->employer->user)->queue(new JobPosted($job));
+
+        TranslateJob::dispatch($job);
 
         return redirect('/jobs');
     }

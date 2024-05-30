@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,7 +16,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'first_name' => 'Dawood',
             'last_name' => 'Faiz',
-            'email' => 'test@example.com',
+            'email' => 'dawood.faiz.tvs@gmail.com',
+            'password' => Hash::make(123456789),
         ]);
 
         $this->call(JobSeeder::class);
