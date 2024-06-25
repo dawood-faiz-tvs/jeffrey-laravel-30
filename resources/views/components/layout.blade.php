@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.tailwindcss.com"></script>
     <title>{{ $title }}</title>
+    @vite(['resources/js/app.js'])
 </head>
 <body class="h-full">
     <div class="min-h-full">
@@ -26,8 +26,8 @@
                             </div>
                         </div>
                     </div>
-                        <div class="ml-4 flex items-center md:ml-6">
-                    <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <div class="hidden md:block">
                             @auth
                             <form action="/logout" method="post">
                                 @csrf
